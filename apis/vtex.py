@@ -12,6 +12,8 @@ class Vtex:
         
         data.sort(key=lambda x: datetime.strptime(x["beginDate"], '%Y-%m-%dT%H:%M:%SZ'))
         
+        data.reverse()
+        
         return data
         
     def get_promo(account_name: str, id: str,appKey: str, appToken: str):
