@@ -12,7 +12,13 @@ class Vtex:
         
         data.sort(key=lambda x: datetime.strptime(x["beginDate"], '%Y-%m-%dT%H:%M:%SZ'))
         
-        data.reverse()
+        # filter for only active promos
+        data = filter(lambda x: x["status"] == "active", data)
+        
+        # filter for only promos with at least one SKU  
+        data = filter(lambda x: x["scope"]["skus"] > 0, data)
+
+        data = list(data)
         
         return data
         
