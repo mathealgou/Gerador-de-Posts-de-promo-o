@@ -3,3 +3,6 @@
 .vscode
 .env
 /config*
+*.jpg
+*.jpeg
+*.png

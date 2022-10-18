@@ -1,38 +1,39 @@
-from apis import Vtex
+from apis import Vtex, Twitter, Instagram
 from decouple import config
 import json
 from terminal import Terminal
 from html import Html
+from content import Images
 
-from html2image import Html2Image
 
 def main():
-    hti = Html2Image()
-    
+    # Vtex auth info
     APP_KEY = config("APP_KEY")
     APP_TOKEN = config("APP_TOKEN")
     ACCOUNT_NAME = config("ACCOUNT_NAME")
     
-    promos = Vtex.get_promos(ACCOUNT_NAME, APP_KEY, APP_TOKEN)
+    # Instagram auth info
+
+    INSTAGRAM_USERNAME = config("INSTAGRAM_USERNAME")
+    INSTAGRAM_PASSWORD = config("INSTAGRAM_PASSWORD")
     
-    print(json.dumps(promos, indent=4))
+    promos = Vtex.get_promos(ACCOUNT_NAME, APP_KEY, APP_TOKEN)
     
     choosen_promo = Terminal.choose_promo(promos)
     
     promo = Vtex.get_promo(ACCOUNT_NAME, choosen_promo["idCalculatorConfiguration"], APP_KEY, APP_TOKEN)
 
-    print(json.dumps(promo, indent=4, sort_keys=True))
-
     html = Html.read().format(
         name=promo["name"],
+        price=12
     )
+    css = Html.read_css()
     
-    hti.screenshot(
-    html_str=html, css_str=Html.read_css(),
-    save_as='test.png'
-    )
+    Images.generate_images_from_html(html, css)
     
-    print(Html.read().format(test=promo["name"]))
+    # Instagram.post(INSTAGRAM_USERNAME, INSTAGRAM_PASSWORD)
+    
+    # Twitter.post_image(bearer_token=TWITTER_BEARER_TOKEN, api_key=TWITTER_API_KEY, api_secret=TWITTER_API_SECRET)
     
 if __name__ == "__main__":
     main()

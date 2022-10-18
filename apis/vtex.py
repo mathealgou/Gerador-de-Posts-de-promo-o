@@ -26,6 +26,11 @@ class Vtex:
         PROMOTION_API_URL = "api/rnb/pvt/calculatorconfiguration"
         print(f"https://{account_name}.vtexcommercestable.com.br/{PROMOTION_API_URL}/{id}")
         response = requests.get(f"https://{account_name}.vtexcommercestable.com.br/{PROMOTION_API_URL}/{id}", headers={"X-VTEX-API-AppKey": appKey, "X-VTEX-API-AppToken": appToken})
+        print(response)
         
         data = response.json()
         return data
+    
+    def parse_promo(promo):
+        # TODO: Create a better schema for the promo
+        pass
