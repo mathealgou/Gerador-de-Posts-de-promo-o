@@ -3,8 +3,7 @@ import os
 import glob
 
 class Instagram:
-    def post(username, password):
-        print(username, password)
+    def post(self, username, password, caption):
         client = Client()
         client.login(username, password)
-        client.photo_upload("./test.jpg", "test")
+        client.photo_upload("./test.jpg", caption)
