@@ -17,7 +17,7 @@ class Terminal:
         
         width = os.get_terminal_size().columns
         
-        message = self.__get_centered_text("Welcome to the VTEX Promo Poster Generator", width)
+        message = self.__get_centered_text("Welcome to the VTEX Promo Post Generator", width)
         
         print("\u001b[32m", "-" * (width - 1))
         print()
